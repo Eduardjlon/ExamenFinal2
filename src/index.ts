@@ -49,28 +49,7 @@ class GestorUsuarios {
     }
 }
 
-const gestorUsuarios = new GestorUsuarios();
-
-function registrarUsuario(): void {
-    console.log('--- Registro de Nuevo Usuario ---');
-
-    const nombre = readlineSync.question('Nombre: ');
-    const carnet = parseInt(readlineSync.question('Carnet: '));
-    const correo = readlineSync.question('Correo electrónico: ');
-    const clave = readlineSync.question('Contraseña: ', { hideEchoBack: true });
-
-    const nuevoUsuario: Usuario = {
-        id_usuario: 0, // Se asignará automáticamente al registrar el usuario
-        nombre,
-        carnet,
-        correo,
-        clave
-    };
-
-    gestorUsuarios.registrarUsuario(nuevoUsuario);
-}
-
-// Menú principal
+// Función para mostrar el menú principal
 function mostrarMenu(): void {
     console.log('\n--- Menú Principal ---');
     console.log('1. Registrar Nuevo Usuario');
@@ -90,10 +69,36 @@ function mostrarMenu(): void {
             console.log('Opción no válida. Por favor, seleccione una opción válida.');
             break;
     }
-
-    // Mostramos el menú nuevamente después de ejecutar la opción seleccionada
-    mostrarMenu();
 }
 
-// Iniciar la aplicación mostrando el menú principal
-mostrarMenu();
+function registrarUsuario(): void {
+    const gestorUsuarios = new GestorUsuarios();
+
+    const nombre = readlineSync.question('Ingrese el nombre del usuario: ');
+    const carnet = parseInt(readlineSync.question('Ingrese el carnet del usuario: '));
+    const correo = readlineSync.question('Ingrese el correo del usuario: ');
+    const clave = readlineSync.question('Ingrese la clave del usuario: ');
+
+    const nuevoUsuario: Usuario = {
+        id_usuario: 0, // El ID se generará automáticamente
+        nombre,
+        carnet,
+        correo,
+        clave
+    };
+
+    gestorUsuarios.registrarUsuario(nuevoUsuario);
+}
+
+// Función principal
+function main(): void {
+    console.log('Bienvenido a la aplicación de gestión de clínica dental.');
+
+    // Ciclo principal
+    while (true) {
+        mostrarMenu();
+    }
+}
+
+// Ejecutar la función principal
+main();
