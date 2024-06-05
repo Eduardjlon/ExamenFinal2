@@ -1,0 +1,22 @@
+[
+    {
+        "id_paciente": 1,
+        "nombre": "Carlos Méndez",
+        "fecha_nacimiento": "1990-05-15",
+        "direccion": "Ciudad de Guatemala",
+        "telefono": 12345678,
+        "alergias": ["Penicilina"],
+        "medicamentos_actuales": ["Aspirina"],
+        "condiciones_medicas": ["Diabetes"]
+    },
+    {
+        "id_paciente": 2,
+        "nombre": "Luisa Martínez",
+        "fecha_nacimiento": "1985-10-20",
+        "direccion": "Villa Nueva, Guatemala",
+        "telefono": 98765432,
+        "alergias": [],
+        "medicamentos_actuales": [],
+        "condiciones_medicas": ["Hipertensión"]
+    }
+]

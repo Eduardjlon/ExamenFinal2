@@ -1,0 +1,20 @@
+[
+    {
+        "id_producto_servicio": 1,
+        "tipo": "Servicio",
+        "nombre": "Limpieza Dental",
+        "precio": 300.0
+    },
+    {
+        "id_producto_servicio": 2,
+        "tipo": "Servicio",
+        "nombre": "Empaste",
+        "precio": 500.0
+    },
+    {
+        "id_producto_servicio": 3,
+        "tipo": "Producto",
+        "nombre": "Pasta Dental",
+        "precio": 25.0
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "id_paciente": 1,
+        "id_doctor": 1,
+        "medicamentos": [
+            {
+                "nombre": "Ibuprofeno",
+                "dosis": "400mg",
+                "frecuencia_horas": 8,
+                "duracion_dias": 3
+            }
+        ]
+    }
+]

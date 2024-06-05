@@ -1,0 +1,16 @@
+[
+    {
+        "id_usuario": 1,
+        "nombre": "Juan Perez",
+        "carnet": 201912345,
+        "correo": "juanperez@example.com",
+        "clave": "Ju4N,P$R3z*"
+    },
+    {
+        "id_usuario": 2,
+        "nombre": "Pedro López",
+        "carnet": 201922222,
+        "correo": "pedrolopez@example.com",
+        "clave": "p3DR,0LoPe7"
+    }
+]

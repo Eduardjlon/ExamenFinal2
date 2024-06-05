@@ -1,0 +1,18 @@
+[
+    {
+        "id_factura": 1,
+        "fecha_hora": "2024-06-01 10:00",
+        "id_paciente": 1,
+        "id_doctor": 1,
+        "servicios_consumidos": [1],
+        "total": 300
+    },
+    {
+        "id_factura": 2,
+        "fecha_hora": "2024-06-03 14:00",
+        "id_paciente": 2,
+        "id_doctor": 1,
+        "servicios_consumidos": [2, 3],
+        "total": 525
+    }
+]
