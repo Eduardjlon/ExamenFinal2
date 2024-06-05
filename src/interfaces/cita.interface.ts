@@ -3,4 +3,4 @@ export interface Cita {
     id_paciente: number
     id_doctor: number
 }
-//hola-
+
