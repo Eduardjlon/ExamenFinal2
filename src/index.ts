@@ -240,7 +240,7 @@ async function editarUsuario(): Promise<void> {
     await gestorUsuarios.editarUsuario(correo, clave);
 }
 
-// Función principal
+// Función cprincipal
 async function main(): Promise<void> {
     console.log('Bienvenido a la aplicación de gestión de clínica dental.');
 
