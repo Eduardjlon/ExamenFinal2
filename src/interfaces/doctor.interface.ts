@@ -1,6 +1,6 @@
 import { Horario } from './horario.interface'
 
-interface Doctor {
+export interface Doctor {
     id_doctor: number
     nombre: string
     especialidad: 'Odontología' | 'Cirujano Oral'
