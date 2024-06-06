@@ -11,7 +11,8 @@
     "nombre": "Jonh",
     "carnet": 66,
     "correo": "eduardojolon46@gmail.com",
-    "clave": "0609"
+    "clave": "0609",
+    "habilitado": true
   },
   {
     "id_usuario": 8,

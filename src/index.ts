@@ -1,7 +1,8 @@
-// Importaciones necesarias
 import * as readline from 'readline';
 import * as fs from 'fs';
 import { Usuario } from './interfaces/usuario.interface';
+
+let usuarioActual: Usuario | null = null; // Variable para mantener la sesión actual
 
 // Cargar usuarios desde el archivo usuarios.json
 function cargarUsuarios(): Usuario[] {
@@ -44,7 +45,8 @@ async function registrarUsuario(): Promise<void> {
         nombre,
         carnet,
         correo,
-        clave
+        clave,
+        habilitado: true
     };
 
     usuarios.push(nuevoUsuario);
@@ -66,10 +68,17 @@ function mostrarDatosUsuario(usuario: Usuario): void {
     console.log('Carnet:', usuario.carnet);
     console.log('Correo:', usuario.correo);
     console.log('Clave:', usuario.clave);
+    console.log('Habilitado:', usuario.habilitado ? 'Sí' : 'No');
 }
 
 // Iniciar sesión
 async function iniciarSesion(): Promise<void> {
+    if (usuarioActual) {
+        console.log(`Ya hay una sesión activa con el usuario: ${usuarioActual.nombre}. Debe desautenticarla primero.`);
+        mostrarMenu();
+        return;
+    }
+
     const usuarios = cargarUsuarios();
     let usuario: Usuario | undefined = undefined;
 
@@ -81,10 +90,30 @@ async function iniciarSesion(): Promise<void> {
 
         if (!usuario) {
             console.log('Correo o clave incorrectos. Por favor, inténtelo de nuevo.\n');
+        } else if (!usuario.habilitado) {
+            const respuesta = await question(`El usuario ${usuario.nombre} está deshabilitado. ¿Desea habilitarlo? (S/N): `);
+            if (respuesta.toLowerCase() === 's') {
+                const correoConfirmacion = await question('Ingrese nuevamente su correo para habilitar: ');
+                const claveConfirmacion = await question('Ingrese nuevamente su clave para habilitar: ');
+
+                if (correoConfirmacion === usuario.correo && claveConfirmacion === usuario.clave) {
+                    usuario.habilitado = true;
+                    guardarUsuarios(usuarios);
+                    console.log(`El usuario ${usuario.nombre} ha sido habilitado.`);
+                } else {
+                    console.log('Credenciales incorrectas. No se pudo habilitar el usuario.');
+                    usuario = undefined;
+                }
+            } else {
+                usuario = undefined;
+            }
         }
     } while (!usuario);
 
-    console.log(`¡Bienvenido, ${usuario.nombre}! Has iniciado sesión exitosamente.\n`);
+    if (usuario) {
+        usuarioActual = usuario;
+        console.log(`¡Bienvenido, ${usuario.nombre}! Has iniciado sesión exitosamente.\n`);
+    }
     mostrarMenu();
 }
 
@@ -142,6 +171,38 @@ async function editarUsuario(): Promise<void> {
     mostrarMenu(); // Volver al menú principal
 }
 
+// Deshabilitar un usuario existente
+async function deshabilitarUsuario(): Promise<void> {
+    const usuarios = cargarUsuarios();
+
+    const correo = await question('Ingrese el correo del usuario que desea deshabilitar: ');
+    const clave = await question('Ingrese la clave del usuario: ');
+
+    const usuario = usuarios.find(user => user.correo === correo && user.clave === clave);
+    if (usuario) {
+        const confirmar = await question('¿Está seguro de que desea deshabilitar este usuario? (S/N): ');
+        if (confirmar.toLowerCase() === 's') {
+            usuario.habilitado = false;
+            guardarUsuarios(usuarios);
+            console.log(`El usuario ${usuario.nombre} ha sido deshabilitado.`);
+        }
+    } else {
+        console.log('Usuario no encontrado o credenciales incorrectas.');
+    }
+    mostrarMenu(); // Volver al menú principal
+}
+
+// Desautenticar (cerrar sesión) del usuario actual
+function desautenticarUsuario(): void {
+    if (usuarioActual) {
+        console.log(`El usuario ${usuarioActual.nombre} ha cerrado sesión.`);
+        usuarioActual = null;
+    } else {
+        console.log('No hay ninguna sesión activa.');
+    }
+    mostrarMenu(); // Volver al menú principal
+}
+
 // Función para leer la entrada del usuario
 function question(prompt: string): Promise<string> {
     const rl = readline.createInterface({
@@ -163,6 +224,8 @@ async function mostrarMenu(): Promise<void> {
     console.log('1. Registrar Nuevo Usuario');
     console.log('2. Iniciar Sesión');
     console.log('3. Editar Usuario');
+    console.log('4. Deshabilitar Usuario');
+    console.log('5. Desautenticar Usuario');
     console.log('0. Salir');
 
     const opcion = await question('Seleccione una opción: ');
@@ -176,6 +239,12 @@ async function mostrarMenu(): Promise<void> {
             break;
         case '3':
             await editarUsuario();
+            break;
+        case '4':
+            await deshabilitarUsuario();
+            break;
+        case '5':
+            desautenticarUsuario();
             break;
         case '0':
             console.log('Saliendo del programa...');

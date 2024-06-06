@@ -4,4 +4,5 @@ export interface Usuario {
     carnet: number;
     correo: string;
     clave: string;
+    habilitado: boolean; // Nuevo campo para indicar si el usuario está habilitado
 }
