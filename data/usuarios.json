@@ -19,5 +19,12 @@
     "carnet": 2,
     "correo": "PRUEBA@GMAIL.COM",
     "clave": "PRUEBA"
+  },
+  {
+    "id_usuario": 9,
+    "nombre": "Prueba1",
+    "carnet": 123,
+    "correo": "Prueba1@gmail.com",
+    "clave": "P1"
   }
 ]
