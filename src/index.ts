@@ -258,9 +258,50 @@ async function mostrarMenu(): Promise<void> {
 
 // Función principal
 async function main(): Promise<void> {
-    console.log('Bienvenido a la aplicación de gestión de clínica dental.');
+    console.log('Bienvenido a la clínica dental .');
     await mostrarMenu();
 }
 
 // Ejecutar la función principal
 main().catch(error => console.error(error));
+
+
+
+//Seguir registro de pacientes acá
+
+
+
+
+
+
+
+//Programacion de citas acá
+
+
+
+
+
+
+//Gestion de doctores y horarios
+
+
+
+
+
+
+
+//Registro de recetas
+
+
+
+
+
+//Administracion de productos y servicios
+
+
+
+
+
+
+
+//Facturacion de Servicios prestados
