@@ -1,6 +1,80 @@
 import * as readline from 'readline';
 import * as fs from 'fs';
-import { Usuario } from './interfaces/usuario.interface';
+
+interface Usuario {
+    id_usuario: number;
+    nombre: string;
+    carnet: number;
+    correo: string;
+    clave: string;
+    habilitado: boolean;
+    rol: string;
+}
+
+interface Paciente {
+    id_paciente: number;
+    nombre: string;
+    fechaNacimiento: string;
+    direccion: string;
+    telefono: string;
+    alergias: string[];
+    medicamentos: string[];
+    condiciones: string[];
+}
+
+interface Doctor {
+    id_doctor: number;
+    nombre: string;
+    especialidad: string;
+}
+
+interface Horario {
+    id_horario: number;
+    id_doctor: number;
+    dia: string;
+    horaInicio: string;
+    horaFin: string;
+}
+
+interface Cita {
+    id_cita: number;
+    id_paciente: number;
+    id_doctor: number;
+    fecha: string;
+    hora: string;
+    servicio: string;
+}
+
+interface Receta {
+    id_receta: number;
+    id_paciente: number;
+    id_doctor: number;
+    medicamento: string;
+    dosis: string;
+    frecuencia: string;
+    duracion: string;
+    fecha: string;
+}
+
+interface ProductoServicio {
+    id_producto: number;
+    nombre: string;
+    tipo: 'producto' | 'servicio';
+    precio: number;
+}
+
+interface Factura {
+    id_factura: number;
+    id_cita: number;
+    servicios: string[];
+    productos: string[];
+    total: number;
+}
+
+interface Historial {
+    id_paciente: number;
+    recetas: Receta[];
+}
 
 let usuarioActual: Usuario | null = null; // Variable para mantener la sesión actual
 
@@ -32,6 +106,7 @@ async function registrarUsuario(): Promise<void> {
     const carnet = parseInt(await question('Ingrese el carnet del usuario: '));
     const correo = await question('Ingrese el correo del usuario: ');
     const clave = await question('Ingrese la clave del usuario: ');
+    const rol = await question('Ingrese el rol del usuario (admin/doctor/personal): ');
 
     const usuarioExistente = usuarios.find(user => user.correo === correo);
     if (usuarioExistente) {
@@ -46,7 +121,8 @@ async function registrarUsuario(): Promise<void> {
         carnet,
         correo,
         clave,
-        habilitado: true
+        habilitado: true,
+        rol
     };
 
     usuarios.push(nuevoUsuario);
@@ -69,6 +145,7 @@ function mostrarDatosUsuario(usuario: Usuario): void {
     console.log('Correo:', usuario.correo);
     console.log('Clave:', usuario.clave);
     console.log('Habilitado:', usuario.habilitado ? 'Sí' : 'No');
+    console.log('Rol:', usuario.rol);
 }
 
 // Iniciar sesión
@@ -203,29 +280,422 @@ function desautenticarUsuario(): void {
     mostrarMenu(); // Volver al menú principal
 }
 
-// Función para leer la entrada del usuario
-function question(prompt: string): Promise<string> {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-
-    return new Promise((resolve) => {
-        rl.question(prompt, (answer: string) => {
-            rl.close();
-            resolve(answer.trim());
-        });
-    });
+// Cargar pacientes desde el archivo pacientes.json
+function cargarPacientes(): Paciente[] {
+    try {
+        const pacientesData = fs.readFileSync('data/pacientes.json', 'utf-8');
+        return JSON.parse(pacientesData);
+    } catch (error) {
+        console.error('Error al cargar pacientes:', error);
+        return [];
+    }
 }
 
-// Función para mostrar el menú principal
+// Guardar los pacientes en el archivo pacientes.json
+function guardarPacientes(pacientes: Paciente[]): void {
+    try {
+        fs.writeFileSync('data/pacientes.json', JSON.stringify(pacientes, null, 2));
+    } catch (error) {
+        console.error('Error al guardar pacientes:', error);
+    }
+}
+
+// Registrar un nuevo paciente
+async function registrarPaciente(): Promise<void> {
+    const pacientes = cargarPacientes();
+
+    const nombre = await question('Ingrese el nombre del paciente: ');
+    const fechaNacimiento = await question('Ingrese la fecha de nacimiento del paciente (YYYY-MM-DD): ');
+    const direccion = await question('Ingrese la dirección del paciente: ');
+    const telefono = await question('Ingrese el número de teléfono del paciente: ');
+    const alergias = (await question('Ingrese las alergias del paciente (separadas por comas): ')).split(',').map(a => a.trim());
+    const medicamentos = (await question('Ingrese los medicamentos actuales del paciente (separados por comas): ')).split(',').map(m => m.trim());
+    const condiciones = (await question('Ingrese las condiciones médicas preexistentes del paciente (separadas por comas): ')).split(',').map(c => c.trim());
+
+    const nuevoId = pacientes.length > 0 ? pacientes[pacientes.length - 1].id_paciente + 1 : 1;
+    const nuevoPaciente: Paciente = {
+        id_paciente: nuevoId,
+        nombre,
+        fechaNacimiento,
+        direccion,
+        telefono,
+        alergias,
+        medicamentos,
+        condiciones
+    };
+
+    pacientes.push(nuevoPaciente);
+    guardarPacientes(pacientes);
+    console.log('Paciente registrado correctamente.');
+
+    mostrarMenu();
+}
+
+// Cargar doctores desde el archivo doctores.json
+function cargarDoctores(): Doctor[] {
+    try {
+        const doctoresData = fs.readFileSync('data/doctores.json', 'utf-8');
+        return JSON.parse(doctoresData);
+    } catch (error) {
+        console.error('Error al cargar doctores:', error);
+        return [];
+    }
+}
+
+// Guardar los doctores en el archivo doctores.json
+function guardarDoctores(doctores: Doctor[]): void {
+    try {
+        fs.writeFileSync('data/doctores.json', JSON.stringify(doctores, null, 2));
+    } catch (error) {
+        console.error('Error al guardar doctores:', error);
+    }
+}
+
+// Registrar un nuevo doctor
+async function registrarDoctor(): Promise<void> {
+    const doctores = cargarDoctores();
+
+    const nombre = await question('Ingrese el nombre del doctor: ');
+    const especialidad = await question('Ingrese la especialidad del doctor: ');
+
+    const nuevoId = doctores.length > 0 ? doctores[doctores.length - 1].id_doctor + 1 : 1;
+    const nuevoDoctor: Doctor = {
+        id_doctor: nuevoId,
+        nombre,
+        especialidad
+    };
+
+    doctores.push(nuevoDoctor);
+    guardarDoctores(doctores);
+    console.log('Doctor registrado correctamente.');
+
+    mostrarMenu();
+}
+
+// Cargar horarios desde el archivo horarios.json
+function cargarHorarios(): Horario[] {
+    try {
+        const horariosData = fs.readFileSync('data/horarios.json', 'utf-8');
+        return JSON.parse(horariosData);
+    } catch (error) {
+        console.error('Error al cargar horarios:', error);
+        return [];
+    }
+}
+
+// Guardar los horarios en el archivo horarios.json
+function guardarHorarios(horarios: Horario[]): void {
+    try {
+        fs.writeFileSync('data/horarios.json', JSON.stringify(horarios, null, 2));
+    } catch (error) {
+        console.error('Error al guardar horarios:', error);
+    }
+}
+
+// Registrar un nuevo horario para un doctor
+async function registrarHorario(): Promise<void> {
+    const horarios = cargarHorarios();
+    const doctores = cargarDoctores();
+
+    console.log('Doctores disponibles:');
+    doctores.forEach(doctor => {
+        console.log(`ID: ${doctor.id_doctor}, Nombre: ${doctor.nombre}, Especialidad: ${doctor.especialidad}`);
+    });
+
+    const idDoctor = parseInt(await question('Ingrese el ID del doctor: '));
+    const dia = await question('Ingrese el día (ej. Lunes): ');
+    const horaInicio = await question('Ingrese la hora de inicio (HH:MM): ');
+    const horaFin = await question('Ingrese la hora de fin (HH:MM): ');
+
+    const nuevoId = horarios.length > 0 ? horarios[horarios.length - 1].id_horario + 1 : 1;
+    const nuevoHorario: Horario = {
+        id_horario: nuevoId,
+        id_doctor: idDoctor,
+        dia,
+        horaInicio,
+        horaFin
+    };
+
+    horarios.push(nuevoHorario);
+    guardarHorarios(horarios);
+    console.log('Horario registrado correctamente.');
+
+    mostrarMenu();
+}
+
+// Cargar citas desde el archivo citas.json
+function cargarCitas(): Cita[] {
+    try {
+        const citasData = fs.readFileSync('data/citas.json', 'utf-8');
+        return JSON.parse(citasData);
+    } catch (error) {
+        console.error('Error al cargar citas:', error);
+        return [];
+    }
+}
+
+// Guardar las citas en el archivo citas.json
+function guardarCitas(citas: Cita[]): void {
+    try {
+        fs.writeFileSync('data/citas.json', JSON.stringify(citas, null, 2));
+    } catch (error) {
+        console.error('Error al guardar citas:', error);
+    }
+}
+
+// Programar una nueva cita
+async function programarCita(): Promise<void> {
+    const citas = cargarCitas();
+    const pacientes = cargarPacientes();
+    const doctores = cargarDoctores();
+
+    console.log('Pacientes disponibles:');
+    pacientes.forEach(paciente => {
+        console.log(`ID: ${paciente.id_paciente}, Nombre: ${paciente.nombre}`);
+    });
+
+    const idPaciente = parseInt(await question('Ingrese el ID del paciente: '));
+
+    console.log('Doctores disponibles:');
+    doctores.forEach(doctor => {
+        console.log(`ID: ${doctor.id_doctor}, Nombre: ${doctor.nombre}, Especialidad: ${doctor.especialidad}`);
+    });
+
+    const idDoctor = parseInt(await question('Ingrese el ID del doctor: '));
+    const fecha = await question('Ingrese la fecha de la cita (YYYY-MM-DD): ');
+    const hora = await question('Ingrese la hora de la cita (HH:MM): ');
+    const servicio = await question('Ingrese el servicio solicitado: ');
+
+    const nuevoId = citas.length > 0 ? citas[citas.length - 1].id_cita + 1 : 1;
+    const nuevaCita: Cita = {
+        id_cita: nuevoId,
+        id_paciente: idPaciente,
+        id_doctor: idDoctor,
+        fecha,
+        hora,
+        servicio
+    };
+
+    citas.push(nuevaCita);
+    guardarCitas(citas);
+    console.log('Cita programada correctamente.');
+
+    mostrarMenu();
+}
+
+// Cargar productos y servicios desde el archivo productos_servicios.json
+function cargarProductosServicios(): ProductoServicio[] {
+    try {
+        const productosServiciosData = fs.readFileSync('data/productos_servicios.json', 'utf-8');
+        return JSON.parse(productosServiciosData);
+    } catch (error) {
+        console.error('Error al cargar productos y servicios:', error);
+        return [];
+    }
+}
+
+// Guardar los productos y servicios en el archivo productos_servicios.json
+function guardarProductosServicios(productosServicios: ProductoServicio[]): void {
+    try {
+        fs.writeFileSync('data/productos_servicios.json', JSON.stringify(productosServicios, null, 2));
+    } catch (error) {
+        console.error('Error al guardar productos y servicios:', error);
+    }
+}
+
+// Registrar un nuevo producto o servicio
+async function registrarProductoServicio(): Promise<void> {
+    const productosServicios = cargarProductosServicios();
+
+    const nombre = await question('Ingrese el nombre del producto o servicio: ');
+    const tipo = await question('Ingrese el tipo (producto/servicio): ') as 'producto' | 'servicio';
+    const precio = parseFloat(await question('Ingrese el precio: '));
+
+    const nuevoId = productosServicios.length > 0 ? productosServicios[productosServicios.length - 1].id_producto + 1 : 1;
+    const nuevoProductoServicio: ProductoServicio = {
+        id_producto: nuevoId,
+        nombre,
+        tipo,
+        precio
+    };
+
+    productosServicios.push(nuevoProductoServicio);
+    guardarProductosServicios(productosServicios);
+    console.log('Producto o servicio registrado correctamente.');
+
+    mostrarMenu();
+}
+
+// Cargar historiales desde el archivo historiales.json
+function cargarHistoriales(): Historial[] {
+    try {
+        const historialesData = fs.readFileSync('data/historiales.json', 'utf-8');
+        return JSON.parse(historialesData);
+    } catch (error) {
+        console.error('Error al cargar historiales:', error);
+        return [];
+    }
+}
+
+// Guardar los historiales en el archivo historiales.json
+function guardarHistoriales(historiales: Historial[]): void {
+    try {
+        fs.writeFileSync('data/historiales.json', JSON.stringify(historiales, null, 2));
+    } catch (error) {
+        console.error('Error al guardar historiales:', error);
+    }
+}
+
+// Registrar una nueva receta
+async function registrarReceta(): Promise<void> {
+    const historiales = cargarHistoriales();
+    const pacientes = cargarPacientes();
+    const doctores = cargarDoctores();
+
+    console.log('Pacientes disponibles:');
+    pacientes.forEach(paciente => {
+        console.log(`ID: ${paciente.id_paciente}, Nombre: ${paciente.nombre}`);
+    });
+
+    const idPaciente = parseInt(await question('Ingrese el ID del paciente: '));
+
+    console.log('Doctores disponibles:');
+    doctores.forEach(doctor => {
+        console.log(`ID: ${doctor.id_doctor}, Nombre: ${doctor.nombre}, Especialidad: ${doctor.especialidad}`);
+    });
+
+    const idDoctor = parseInt(await question('Ingrese el ID del doctor: '));
+    const medicamento = await question('Ingrese el nombre del medicamento: ');
+    const dosis = await question('Ingrese la dosis: ');
+    const frecuencia = await question('Ingrese la frecuencia: ');
+    const duracion = await question('Ingrese la duración del tratamiento: ');
+    const fecha = new Date().toISOString().split('T')[0];
+
+    const nuevoId = historiales.length > 0 ? historiales[historiales.length - 1].id_paciente + 1 : 1;
+    const nuevaReceta: Receta = {
+        id_receta: nuevoId,
+        id_paciente: idPaciente,
+        id_doctor: idDoctor,
+        medicamento,
+        dosis,
+        frecuencia,
+        duracion,
+        fecha
+    };
+
+    let historial = historiales.find(historial => historial.id_paciente === idPaciente);
+    if (!historial) {
+        historial = {
+            id_paciente: idPaciente,
+            recetas: []
+        };
+        historiales.push(historial);
+    }
+    historial.recetas.push(nuevaReceta);
+    guardarHistoriales(historiales);
+    console.log('Receta registrada correctamente.');
+
+    mostrarMenu();
+}
+
+// Cargar facturas desde el archivo facturas.json
+function cargarFacturas(): Factura[] {
+    try {
+        const facturasData = fs.readFileSync('data/facturas.json', 'utf-8');
+        return JSON.parse(facturasData);
+    } catch (error) {
+        console.error('Error al cargar facturas:', error);
+        return [];
+    }
+}
+
+// Guardar las facturas en el archivo facturas.json
+function guardarFacturas(facturas: Factura[]): void {
+    try {
+        fs.writeFileSync('data/facturas.json', JSON.stringify(facturas, null, 2));
+    } catch (error) {
+        console.error('Error al guardar facturas:', error);
+    }
+}
+
+// Generar una nueva factura
+async function generarFactura(): Promise<void> {
+    const facturas = cargarFacturas();
+    const citas = cargarCitas();
+    const productosServicios = cargarProductosServicios();
+
+    console.log('Citas disponibles:');
+    citas.forEach(cita => {
+        console.log(`ID: ${cita.id_cita}, Paciente ID: ${cita.id_paciente}, Doctor ID: ${cita.id_doctor}, Fecha: ${cita.fecha}, Hora: ${cita.hora}, Servicio: ${cita.servicio}`);
+    });
+
+    const idCita = parseInt(await question('Ingrese el ID de la cita: '));
+
+    const cita = citas.find(cita => cita.id_cita === idCita);
+    if (!cita) {
+        console.log('Cita no encontrada.');
+        mostrarMenu();
+        return;
+    }
+
+    const serviciosConsumidos = [cita.servicio];
+    const productosConsumidos = (await question('Ingrese los productos consumidos (separados por comas): ')).split(',').map(p => p.trim());
+
+    const totalServicios = serviciosConsumidos.reduce((total, servicio) => {
+        const productoServicio = productosServicios.find(ps => ps.nombre === servicio && ps.tipo === 'servicio');
+        return total + (productoServicio ? productoServicio.precio : 0);
+    }, 0);
+
+    const totalProductos = productosConsumidos.reduce((total, producto) => {
+        const productoServicio = productosServicios.find(ps => ps.nombre === producto && ps.tipo === 'producto');
+        return total + (productoServicio ? productoServicio.precio : 0);
+    }, 0);
+
+    const total = totalServicios + totalProductos;
+
+    const nuevoId = facturas.length > 0 ? facturas[facturas.length - 1].id_factura + 1 : 1;
+    const nuevaFactura: Factura = {
+        id_factura: nuevoId,
+        id_cita: idCita,
+        servicios: serviciosConsumidos,
+        productos: productosConsumidos,
+        total
+    };
+
+    facturas.push(nuevaFactura);
+    guardarFacturas(facturas);
+    console.log('Factura generada correctamente.');
+    console.log(`Total a pagar: Q.${total}`);
+
+    mostrarMenu();
+}
+
+// Crear readline interface para la entrada de usuario
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+// Función auxiliar para obtener la entrada del usuario
+function question(query: string): Promise<string> {
+    return new Promise(resolve => rl.question(query, resolve));
+}
+
+// Mostrar el menú principal
 async function mostrarMenu(): Promise<void> {
-    console.log('\n--- Menú Principal ---');
-    console.log('1. Registrar Nuevo Usuario');
-    console.log('2. Iniciar Sesión');
-    console.log('3. Editar Usuario');
-    console.log('4. Deshabilitar Usuario');
-    console.log('5. Desautenticar Usuario');
+    console.log('\n--- Sistema de Gestión Clínica Dental ---');
+    console.log('1. Registrarse');
+    console.log('2. Iniciar sesión');
+    console.log('3. Editar usuario');
+    console.log('4. Deshabilitar usuario');
+    console.log('5. Desautenticar usuario');
+    console.log('6. Registrar paciente');
+    console.log('7. Registrar doctor');
+    console.log('8. Registrar horario de doctor');
+    console.log('9. Programar cita');
+    console.log('10. Registrar producto o servicio');
+    console.log('11. Registrar receta');
+    console.log('12. Generar factura');
     console.log('0. Salir');
 
     const opcion = await question('Seleccione una opción: ');
@@ -246,9 +716,30 @@ async function mostrarMenu(): Promise<void> {
         case '5':
             desautenticarUsuario();
             break;
+        case '6':
+            await registrarPaciente();
+            break;
+        case '7':
+            await registrarDoctor();
+            break;
+        case '8':
+            await registrarHorario();
+            break;
+        case '9':
+            await programarCita();
+            break;
+        case '10':
+            await registrarProductoServicio();
+            break;
+        case '11':
+            await registrarReceta();
+            break;
+        case '12':
+            await generarFactura();
+            break;
         case '0':
-            console.log('Saliendo del programa...');
-            process.exit(0);
+            rl.close();
+            return;
         default:
             console.log('Opción no válida. Por favor, seleccione una opción válida.');
             mostrarMenu();
@@ -256,151 +747,5 @@ async function mostrarMenu(): Promise<void> {
     }
 }
 
-// Función principal
-async function main(): Promise<void> {
-    console.log('Bienvenido a la clínica dental .');
-    await mostrarMenu();
-}
-
-// Ejecutar la función principal
-main().catch(error => console.error(error));
-
-
-
-//Seguir registro de pacientes acá
-
-
-console.log("codigo xdxdxd")
-//Ola ddd
-
-
-
-//Programacion de citas acá
-
-interface Cita {
-    id: number;
-    fecha: string;
-    paciente: string;
-    doctor: string;
-}
-
-let citas: Cita[] = [];
-
-function programarCita(fecha: string, paciente: string, doctor: string): void {
-    const cita: Cita = {
-        id: citas.length + 1,
-        fecha,
-        paciente,
-        doctor
-    };
-    citas.push(cita);
-}
-
-function cancelarCita(idCita: number): void {
-    citas = citas.filter(cita => cita.id !== idCita);
-}
-
-function reprogramarCita(idCita: number, nuevaFecha: string): void {
-    const citaIndex = citas.findIndex(cita => cita.id === idCita);
-    if (citaIndex !== -1) {
-        citas[citaIndex].fecha = nuevaFecha;
-    }
-}
-
-function obtenerCitasDoctor(nombreDoctor: string): Cita[] {
-    return citas.filter(cita => cita.doctor === nombreDoctor);
-}
-
-function obtenerCitasPaciente(nombrePaciente: string): Cita[] {
-    return citas.filter(cita => cita.paciente === nombrePaciente);
-}
-
-function obtenerCitasPorFecha(fecha: string): Cita[] {
-    return citas.filter(cita => cita.fecha === fecha);
-}
-
-// GESTION DE DOCTORES Y HORARIOS
-
-interface Doctor {
-    id: number;
-    nombre: string;
-    horarios: Horario[];
-}
-
-interface Horario {
-    dia: string;
-    disponible: boolean;
-}
-
-let doctores: Doctor[] = [];
-
-function crearDoctor(nombre: string): void {
-    const doctor: Doctor = {
-        id: doctores.length + 1,
-        nombre,
-        horarios: []
-    };
-    doctores.push(doctor);
-}
-
-function editarDoctor(idDoctor: number, nuevoNombre: string): void {
-    const doctor = doctores.find(d => d.id === idDoctor);
-    if (doctor) {
-        doctor.nombre = nuevoNombre;
-    }
-}
-
-function eliminarDoctor(idDoctor: number): void {
-    doctores = doctores.filter(d => d.id !== idDoctor);
-}
-
-function obtenerDoctorPorId(idDoctor: number): Doctor | undefined {
-    return doctores.find(d => d.id === idDoctor);
-}
-
-function obtenerDoctoresDisponiblesParaFecha(fecha: string): Doctor[] {
-    return doctores.filter(d => d.horarios.some(h => h.dia === fecha && h.disponible));
-}
-
-function obtenerTodosLosDoctores(): Doctor[] {
-    return doctores;
-}
-
-function conteoDoctores(): number {
-    return doctores.length;
-}
-
-function validarDisponibilidadDoctorParaFecha(idDoctor: number, fecha: string): boolean {
-    const doctor = doctores.find(d => d.id === idDoctor);
-    if (doctor) {
-        const horario = doctor.horarios.find(h => h.dia === fecha);
-        return !!horario && horario.disponible;
-    }
-    return false;
-}
-
-
-
-
-//Gestion de doctores y horarios
-
-
-
-
-
-
-
-//Registro de recetas
-
-
-
-
-//Administracion de productos y servicios
-
-
-
-
-
-
-
-//Facturacion de Servicios prestados
+// Iniciar el programa mostrando el menú
+mostrarMenu();
