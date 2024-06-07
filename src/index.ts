@@ -277,7 +277,107 @@ console.log("codigo xdxdxd")
 
 //Programacion de citas acá
 
+interface Cita {
+    id: number;
+    fecha: string;
+    paciente: string;
+    doctor: string;
+}
 
+let citas: Cita[] = [];
+
+function programarCita(fecha: string, paciente: string, doctor: string): void {
+    const cita: Cita = {
+        id: citas.length + 1,
+        fecha,
+        paciente,
+        doctor
+    };
+    citas.push(cita);
+}
+
+function cancelarCita(idCita: number): void {
+    citas = citas.filter(cita => cita.id !== idCita);
+}
+
+function reprogramarCita(idCita: number, nuevaFecha: string): void {
+    const citaIndex = citas.findIndex(cita => cita.id === idCita);
+    if (citaIndex !== -1) {
+        citas[citaIndex].fecha = nuevaFecha;
+    }
+}
+
+function obtenerCitasDoctor(nombreDoctor: string): Cita[] {
+    return citas.filter(cita => cita.doctor === nombreDoctor);
+}
+
+function obtenerCitasPaciente(nombrePaciente: string): Cita[] {
+    return citas.filter(cita => cita.paciente === nombrePaciente);
+}
+
+function obtenerCitasPorFecha(fecha: string): Cita[] {
+    return citas.filter(cita => cita.fecha === fecha);
+}
+
+// GESTION DE DOCTORES Y HORARIOS
+
+interface Doctor {
+    id: number;
+    nombre: string;
+    horarios: Horario[];
+}
+
+interface Horario {
+    dia: string;
+    disponible: boolean;
+}
+
+let doctores: Doctor[] = [];
+
+function crearDoctor(nombre: string): void {
+    const doctor: Doctor = {
+        id: doctores.length + 1,
+        nombre,
+        horarios: []
+    };
+    doctores.push(doctor);
+}
+
+function editarDoctor(idDoctor: number, nuevoNombre: string): void {
+    const doctor = doctores.find(d => d.id === idDoctor);
+    if (doctor) {
+        doctor.nombre = nuevoNombre;
+    }
+}
+
+function eliminarDoctor(idDoctor: number): void {
+    doctores = doctores.filter(d => d.id !== idDoctor);
+}
+
+function obtenerDoctorPorId(idDoctor: number): Doctor | undefined {
+    return doctores.find(d => d.id === idDoctor);
+}
+
+function obtenerDoctoresDisponiblesParaFecha(fecha: string): Doctor[] {
+    return doctores.filter(d => d.horarios.some(h => h.dia === fecha && h.disponible));
+}
+
+function obtenerTodosLosDoctores(): Doctor[] {
+    return doctores;
+}
+
+function conteoDoctores(): number {
+    return doctores.length;
+}
+
+function validarDisponibilidadDoctorParaFecha(idDoctor: number, fecha: string): boolean {
+    const doctor = doctores.find(d => d.id === idDoctor);
+    if (doctor) {
+        const horario = doctor.horarios.find(h => h.dia === fecha);
+        return !!horario && horario.disponible;
+    }
+    return false;
+}
 
 
 
@@ -291,7 +391,6 @@ console.log("codigo xdxdxd")
 
 
 //Registro de recetas
-
 
 
 
