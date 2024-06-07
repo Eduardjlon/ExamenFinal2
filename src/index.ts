@@ -270,8 +270,8 @@ main().catch(error => console.error(error));
 //Seguir registro de pacientes acá
 
 
-
-
+console.log("codigo xdxdxd")
+//Ola ddd
 
 
 
