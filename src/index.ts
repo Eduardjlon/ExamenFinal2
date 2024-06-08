@@ -621,6 +621,57 @@ async function registrarProductoServicio(): Promise<void> {
     mostrarMenu();
 }
 
+// Definir un array para almacenar los productos y servicios
+let catalogo = [];
+
+// Función para crear un nuevo producto/servicio
+function crearProductoServicio(id, nombre, tipo) {
+    catalogo.push({ id, nombre, tipo });
+}
+
+// Función para editar un producto/servicio existente
+function editarProductoServicio(id, nombre, tipo) {
+    const productoServicioIndex = catalogo.findIndex(item => item.id === id);
+    if (productoServicioIndex !== -1) {
+        catalogo[productoServicioIndex].nombre = nombre;
+        catalogo[productoServicioIndex].tipo = tipo;
+    } else {
+        console.log("Producto/Servicio no encontrado");
+    }
+}
+
+// Función para eliminar un producto/servicio existente
+function eliminarProductoServicio(id) {
+    catalogo = catalogo.filter(item => item.id !== id);
+}
+
+// Función para obtener un producto/servicio por su ID
+function obtenerProductoServicioPorId(id) {
+    return catalogo.find(item => item.id === id);
+}
+
+// Función para obtener todos los productos/servicios por tipo
+function obtenerProductosServiciosPorTipo(tipo) {
+    return catalogo.filter(item => item.tipo === tipo);
+}
+
+// Ejemplo de uso
+crearProductoServicio(1, "Limpieza dental", "Servicio");
+crearProductoServicio(2, "Empaste", "Servicio");
+crearProductoServicio(3, "Extracción dental", "Servicio");
+crearProductoServicio(4, "Ortodoncia", "Servicio");
+crearProductoServicio(5, "Blanqueamiento dental", "Servicio");
+
+console.log(obtenerProductoServicioPorId(3));
+
+editarProductoServicio(3, "Extracción dental avanzada", "Servicio");
+
+eliminarProductoServicio(2);
+
+console.log(obtenerProductosServiciosPorTipo("Servicio"));
+
+
+
 // Cargar historiales desde el archivo historiales.json
 function cargarHistoriales(): Historial[] {
     try {
@@ -889,4 +940,7 @@ async function mostrarMenu(): Promise<void> {
 // Las recetas si se crean y se guardan en "Recetas5.json" hay que crear la funcion de ver las recetas creadas
 // Ayuda señor Jesus
 // Holi
+// Abc
+// procesos
+//DATA
 mostrarMenu();
