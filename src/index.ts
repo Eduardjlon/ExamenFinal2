@@ -746,6 +746,6 @@ async function mostrarMenu(): Promise<void> {
             break;
     }
 }
-
+// Hay que arreglar el coso para precios, no jala xd
 // Iniciar el programa mostrando el menú
 mostrarMenu();
