@@ -1,45 +1,27 @@
 [
   {
-    "id_paciente": 5,
-    "recetas": [
+    "id_paciente": 1,
+    "id_doctor": 1,
+    "medicamentos": [
       {
-        "id_receta": 1,
-        "id_paciente": 5,
-        "id_doctor": 1,
-        "medicamento": "Panadol",
-        "dosis": "1 al dia",
-        "frecuencia": "1 al dia",
-        "duracion": "1",
-        "fecha": "2024-06-08"
+        "nombre": "Ibuprofeno",
+        "dosis": "400mg",
+        "frecuencia_horas": 8,
+        "duracion_dias": 3
       }
     ]
   },
   {
-    "id_paciente": 4,
+    "id_paciente": 2,
     "recetas": [
       {
-        "id_receta": 6,
-        "id_paciente": 4,
+        "id_receta": 2,
+        "id_paciente": 2,
         "id_doctor": 1,
         "medicamento": "Panadol",
         "dosis": "1",
-        "frecuencia": "cada 12 horas",
+        "frecuencia": "2",
         "duracion": "1 semana",
-        "fecha": "2024-06-08"
-      }
-    ]
-  },
-  {
-    "id_paciente": 3,
-    "recetas": [
-      {
-        "id_receta": 5,
-        "id_paciente": 3,
-        "id_doctor": 1,
-        "medicamento": "Panadol",
-        "dosis": "1",
-        "frecuencia": "3",
-        "duracion": "2",
         "fecha": "2024-06-08"
       }
     ]

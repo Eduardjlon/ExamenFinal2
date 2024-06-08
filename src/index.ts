@@ -529,7 +529,7 @@ async function registrarProductoServicio(): Promise<void> {
 // Cargar historiales desde el archivo historiales.json
 function cargarHistoriales(): Historial[] {
     try {
-        const historialesData = fs.readFileSync('data/historiales.json', 'utf-8');
+        const historialesData = fs.readFileSync('data/recetas.json', 'utf-8');
         return JSON.parse(historialesData);
     } catch (error) {
         console.error('Error al cargar historiales:', error);
@@ -538,17 +538,17 @@ function cargarHistoriales(): Historial[] {
 }
 
 // Guardar los historiales en el archivo historiales.json
-function guardarHistoriales(historiales: Historial[]): void {
+function guardarHistoriales(recetas: Historial[]): void {
     try {
-        fs.writeFileSync('data/historiales.json', JSON.stringify(historiales, null, 2));
+        fs.writeFileSync('data/recetas.json', JSON.stringify(recetas, null, 2));
     } catch (error) {
-        console.error('Error al guardar historiales:', error);
+        console.error('Error al guardar recetas:', error);
     }
 }
 
 // Registrar una nueva receta
 async function registrarReceta(): Promise<void> {
-    const historiales = cargarHistoriales();
+    const recetas = cargarHistoriales();
     const pacientes = cargarPacientes();
     const doctores = cargarDoctores();
 
@@ -571,7 +571,7 @@ async function registrarReceta(): Promise<void> {
     const duracion = await question('Ingrese la duración del tratamiento: ');
     const fecha = new Date().toISOString().split('T')[0];
 
-    const nuevoId = historiales.length > 0 ? historiales[historiales.length - 1].id_paciente + 1 : 1;
+    const nuevoId = recetas.length > 0 ? recetas[recetas.length - 1].id_paciente + 1 : 1;
     const nuevaReceta: Receta = {
         id_receta: nuevoId,
         id_paciente: idPaciente,
@@ -583,16 +583,16 @@ async function registrarReceta(): Promise<void> {
         fecha
     };
 
-    let historial = historiales.find(historial => historial.id_paciente === idPaciente);
+    let historial = recetas.find(historial => historial.id_paciente === idPaciente);
     if (!historial) {
         historial = {
             id_paciente: idPaciente,
             recetas: []
         };
-        historiales.push(historial);
+        recetas.push(historial);
     }
     historial.recetas.push(nuevaReceta);
-    guardarHistoriales(historiales);
+    guardarHistoriales(recetas);
     console.log('Receta registrada correctamente.');
 
     mostrarMenu();
@@ -716,7 +716,7 @@ async function mostrarMenu(): Promise<void> {
     console.log('10. Registrar producto o servicio');
     console.log('11. Registrar receta');
     console.log('12. Generar factura');
-    console.log('13 Ver registro de pacientes')
+    console.log('13. Ver registro de pacientes')
     console.log('0. Salir');
 
     const opcion = await question('Seleccione una opción: ');
