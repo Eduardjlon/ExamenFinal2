@@ -106,7 +106,7 @@ async function registrarUsuario(): Promise<void> {
     const carnet = parseInt(await question('Ingrese el carnet del usuario: '));
     const correo = await question('Ingrese el correo del usuario: ');
     const clave = await question('Ingrese la clave del usuario: ');
-    const rol = await question('Ingrese el rol del usuario (admin/doctor/personal): ');
+    const rol = await question('Ingrese el rol del usuario (Doctor/Paciente): ');
 
     const usuarioExistente = usuarios.find(user => user.correo === correo);
     if (usuarioExistente) {
@@ -684,12 +684,12 @@ function question(query: string): Promise<string> {
 // Mostrar el menú principal
 async function mostrarMenu(): Promise<void> {
     console.log('\n--- Sistema de Gestión Clínica Dental ---');
-    console.log('1. Registrarse');
+    console.log('1. Registrarse'); //Solicita si se esta registrando un paciente o un doctor, pero no se si puede llegar a complicar las cosas
     console.log('2. Iniciar sesión');
     console.log('3. Editar usuario');
     console.log('4. Deshabilitar usuario');
     console.log('5. Desautenticar usuario');
-    console.log('6. Registrar paciente');
+    console.log('6. Registrar paciente'); //Podemos usar estos dos cosos para ver todos los paciente y doctores (6-7)
     console.log('7. Registrar doctor');
     console.log('8. Registrar horario de doctor');
     console.log('9. Programar cita');
