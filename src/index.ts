@@ -621,7 +621,7 @@ async function cancelarCita(): Promise<void> {
 
     mostrarMenu();
 }
-
+// Ya jalo xd
 // Reprogramar una cita existente
 async function reprogramarCita(): Promise<void> {
     const citas = cargarCitas();
@@ -780,7 +780,7 @@ async function registrarReceta(): Promise<void> {
     doctores.forEach(doctor => {
         console.log(`ID: ${doctor.id_doctor}, Nombre: ${doctor.nombre}, Especialidad: ${doctor.especialidad}`);
     });
-
+// estudiaron para fisica?
     const idDoctor = parseInt(await question('Ingrese el ID del doctor: '));
     const medicamento = await question('Ingrese el nombre del medicamento: ');
     const dosis = await question('Ingrese la dosis: ');
@@ -846,7 +846,7 @@ function cargarFacturas(): Factura[] {
         return [];
     }
 }
-
+// ola porque hay un error en la linea 725
 // Guardar las facturas en el archivo facturas.json
 function guardarFacturas(facturas: Factura[]): void {
     try {
@@ -949,7 +949,7 @@ async function mostrarMenu(): Promise<void> {
     console.log('0. Salir');
 
     const opcion = await question('Seleccione una opción: ');
-
+// 25 OPCIONES JAKSAJSJAKx xdxdxd
     switch (opcion) {
         case '1':
             await registrarUsuario();
@@ -1040,4 +1040,7 @@ async function mostrarMenu(): Promise<void> {
 // Ayuda señor Jesus
 // Holi
 //kkkk
+// WAOS
+// xdddddddd
+// YA JALOOOOOOO!!!!!!!!!!!!!
 mostrarMenu();
