@@ -40,5 +40,13 @@
     "fecha": "2024/08/25",
     "hora": "16:00",
     "servicio": "Odontologia"
+  },
+  {
+    "id_cita": 4,
+    "id_paciente": 1,
+    "id_doctor": 2,
+    "fecha": "2024/9/5",
+    "hora": "12:20",
+    "servicio": "Blanqueamiento"
   }
 ]

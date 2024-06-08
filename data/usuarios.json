@@ -117,5 +117,23 @@
     "clave": "w",
     "habilitado": true,
     "rol": "w"
+  },
+  {
+    "id_usuario": 20,
+    "nombre": "Pablo",
+    "carnet": 2025,
+    "correo": "pablo@gmail.com",
+    "clave": "pablo",
+    "habilitado": true,
+    "rol": "paciente"
+  },
+  {
+    "id_usuario": 21,
+    "nombre": "Daniela",
+    "carnet": 2026,
+    "correo": "daniela@gamil.com",
+    "clave": "abc",
+    "habilitado": true,
+    "rol": "Paciente"
   }
 ]

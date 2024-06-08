@@ -663,12 +663,12 @@ async function generarFactura(): Promise<void> {
 
     const totalServicios = serviciosConsumidos.reduce((total, servicio) => {
         const productoServicio = productosServicios.find(ps => ps.nombre === servicio && ps.tipo === 'servicio');
-        return total + (productoServicio ? productoServicio.precio : 0);
+        return total + (productoServicio ? productoServicio.precio : total);
     }, 0);
 
     const totalProductos = productosConsumidos.reduce((total, producto) => {
         const productoServicio = productosServicios.find(ps => ps.nombre === producto && ps.tipo === 'producto');
-        return total + (productoServicio ? productoServicio.precio : 0);
+        return total + (productoServicio ? productoServicio.precio : total);
     }, 0);
 
     const total = totalServicios + totalProductos;
