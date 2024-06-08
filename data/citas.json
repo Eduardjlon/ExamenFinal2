@@ -48,5 +48,21 @@
     "fecha": "2024/9/5",
     "hora": "12:20",
     "servicio": "Blanqueamiento"
+  },
+  {
+    "id_cita": 6,
+    "id_paciente": 1,
+    "id_doctor": 1,
+    "fecha": "22/07/2024",
+    "hora": "13:00",
+    "servicio": "7"
+  },
+  {
+    "id_cita": 7,
+    "id_paciente": 1,
+    "id_doctor": 1,
+    "fecha": "22/7/2020",
+    "hora": "13:00",
+    "servicio": "7"
   }
 ]

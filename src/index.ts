@@ -112,7 +112,9 @@ async function registrarUsuario(): Promise<void> {
     if (usuarioExistente) {
         console.log('Ya existe un usuario con este correo.');
         return;
+        mostrarMenu();    
     }
+    
 
     const nuevoId = usuarios.length > 0 ? usuarios[usuarios.length - 1].id_usuario + 1 : 1;
     const nuevoUsuario: Usuario = {
@@ -481,6 +483,100 @@ async function programarCita(): Promise<void> {
 
     mostrarMenu();
 }
+// Cancelar una cita existente
+async function cancelarCita(): Promise<void> {
+    const citas = cargarCitas();
+    const idCita = parseInt(await question('Ingrese el ID de la cita a cancelar: '));
+
+    const index = citas.findIndex(cita => cita.id_cita === idCita);
+    if (index !== -1) {
+        citas.splice(index, 1);
+        guardarCitas(citas);
+        console.log('La cita ha sido cancelada exitosamente.');
+    } else {
+        console.log('No se encontró ninguna cita con ese ID.');
+    }
+
+    mostrarMenu();
+}
+
+// Reprogramar una cita existente
+async function reprogramarCita(): Promise<void> {
+    const citas = cargarCitas();
+    const idCita = parseInt(await question('Ingrese el ID de la cita a reprogramar: '));
+
+    const cita = citas.find(cita => cita.id_cita === idCita);
+    if (cita) {
+        const nuevaFecha = await question('Ingrese la nueva fecha de la cita (YYYY-MM-DD): ');
+        const nuevaHora = await question('Ingrese la nueva hora de la cita (HH:MM): ');
+
+        cita.fecha = nuevaFecha;
+        cita.hora = nuevaHora;
+
+        guardarCitas(citas);
+        console.log('La cita ha sido reprogramada exitosamente.');
+    } else {
+        console.log('No se encontró ninguna cita con ese ID.');
+    }
+
+    mostrarMenu();
+}
+
+// Obtener citas de un doctor
+async function obtenerCitasDoctor(): Promise <void> {
+    const citas = cargarCitas();
+    const idDoctor = parseInt(await question('Ingrese el ID del doctor: '));
+
+
+    const citasDoctor = citas.filter(cita => cita.id_doctor === idDoctor);
+    if (citasDoctor.length === 0) {
+        console.log('No hay citas programadas para este doctor.');
+    } else {
+        console.log('Citas programadas para este doctor:');
+        citasDoctor.forEach(cita => {
+            console.log(`ID: ${cita.id_cita}, Paciente ID: ${cita.id_paciente}, Fecha: ${cita.fecha}, Hora: ${cita.hora}, Servicio: ${cita.servicio}`);
+        });
+    }
+
+    mostrarMenu();
+}
+
+// Obtener citas de un paciente
+async function obtenerCitasPaciente(): Promise <void> {
+    const citas = cargarCitas();
+    const idPaciente = parseInt(await question('Ingrese el ID del paciente: '));
+
+    const citasPaciente = citas.filter(cita => cita.id_paciente === idPaciente);
+    if (citasPaciente.length === 0) {
+        console.log('No hay citas programadas para este paciente.');
+    } else {
+        console.log('Citas programadas para este paciente:');
+        citasPaciente.forEach(cita => {
+            console.log(`ID: ${cita.id_cita}, Doctor ID: ${cita.id_doctor}, Fecha: ${cita.fecha}, Hora: ${cita.hora}, Servicio: ${cita.servicio}`);
+        });
+    }
+
+    mostrarMenu();
+}
+
+// Obtener citas por fecha
+async function obtenerCitasPorFecha(): Promise<void> {
+    const citas = cargarCitas();
+    const fecha = await question('Ingrese la fecha (YYYY-MM-DD): ');
+
+    const citasFecha = citas.filter(cita => cita.fecha === fecha);
+    if (citasFecha.length === 0) {
+        console.log('No hay citas programadas para esta fecha.');
+    } else {
+        console.log(`Citas programadas para la fecha ${fecha}:`);
+        citasFecha.forEach(cita => {
+            console.log(`ID: ${cita.id_cita}, Paciente ID: ${cita.id_paciente}, Doctor ID: ${cita.id_doctor}, Hora: ${cita.hora}, Servicio: ${cita.servicio}`);
+        });
+    }
+
+    mostrarMenu();
+}
+
 
 // Cargar productos y servicios desde el archivo productos_servicios.json
 function cargarProductosServicios(): ProductoServicio[] {
@@ -716,6 +812,11 @@ async function mostrarMenu(): Promise<void> {
     console.log('11. Registrar receta');
     console.log('12. Generar factura');
     console.log('13. Ver registro de pacientes')
+    console.log('14. cancelarCita')
+    console.log('15. reprogramarCita')
+    console.log('16. obtenerCitasDoctor')
+    console.log('17. obtenerCitasPaciente')
+    console.log('18. obtenerCitasPorFecha')
     console.log('0. Salir');
 
     const opcion = await question('Seleccione una opción: ');
@@ -758,8 +859,23 @@ async function mostrarMenu(): Promise<void> {
             await generarFactura();
             break;
         case '13':
-            verTodosLosPacientes();
+            await verTodosLosPacientes();
             break;
+        case '14':
+            await cancelarCita();
+            break;
+         case '15':
+            await reprogramarCita();
+            break;
+         case '16':
+            await  obtenerCitasDoctor();
+            break;
+        case '17':
+            await obtenerCitasPaciente();
+             break;
+        case '18':
+            await obtenerCitasPorFecha();
+             break;
         case '0':
             rl.close();
             return;
