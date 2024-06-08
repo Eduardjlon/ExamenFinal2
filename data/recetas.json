@@ -23,6 +23,16 @@
         "frecuencia": "1",
         "duracion": "1",
         "fecha": "2024-06-08"
+      },
+      {
+        "id_receta": 5,
+        "id_paciente": 3,
+        "id_doctor": 2,
+        "medicamento": "Panadol",
+        "dosis": "1",
+        "frecuencia": "1",
+        "duracion": "2 dias",
+        "fecha": "2024-06-08"
       }
     ]
   },

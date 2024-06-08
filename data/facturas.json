@@ -64,5 +64,38 @@
       "2"
     ],
     "total": 0
+  },
+  {
+    "id_factura": 7,
+    "id_cita": 4,
+    "servicios": [
+      "Blanqueamiento"
+    ],
+    "productos": [
+      "7"
+    ],
+    "total": 0
+  },
+  {
+    "id_factura": 8,
+    "id_cita": 4,
+    "servicios": [
+      "Blanqueamiento"
+    ],
+    "productos": [
+      "7"
+    ],
+    "total": 0
+  },
+  {
+    "id_factura": 9,
+    "id_cita": 4,
+    "servicios": [
+      "Blanqueamiento"
+    ],
+    "productos": [
+      "Panadol"
+    ],
+    "total": 0
   }
 ]
