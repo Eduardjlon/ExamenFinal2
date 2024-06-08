@@ -747,5 +747,6 @@ async function mostrarMenu(): Promise<void> {
     }
 }
 // Hay que arreglar el coso para precios, no jala xd
+// Las recetas si se crean y se guardan en "historiales.json" hay que crear la funcion de ver las recetas creadas
 // Iniciar el programa mostrando el menú
 mostrarMenu();

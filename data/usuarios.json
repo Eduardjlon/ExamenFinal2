@@ -54,5 +54,14 @@
     "clave": "Andres",
     "habilitado": true,
     "rol": "Doctor"
+  },
+  {
+    "id_usuario": 13,
+    "nombre": "Mike",
+    "carnet": 2000,
+    "correo": "Mike@yahoo.com",
+    "clave": "Mike",
+    "habilitado": true,
+    "rol": "Doctor"
   }
 ]

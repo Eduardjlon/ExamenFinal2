@@ -1,0 +1,17 @@
+[
+  {
+    "id_paciente": 5,
+    "recetas": [
+      {
+        "id_receta": 1,
+        "id_paciente": 5,
+        "id_doctor": 1,
+        "medicamento": "Panadol",
+        "dosis": "1 al dia",
+        "frecuencia": "1 al dia",
+        "duracion": "1",
+        "fecha": "2024-06-08"
+      }
+    ]
+  }
+]
