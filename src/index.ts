@@ -771,5 +771,5 @@ async function mostrarMenu(): Promise<void> {
 }
 // Hay que arreglar el coso para precios, no jala xd
 // Las recetas si se crean y se guardan en "Recetas5.json" hay que crear la funcion de ver las recetas creadas
-
+// Ayuda señor Jesus
 mostrarMenu();
