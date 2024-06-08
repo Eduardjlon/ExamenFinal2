@@ -1,0 +1,29 @@
+[
+  {
+    "id_paciente": 1,
+    "id_doctor": 1,
+    "medicamentos": [
+      {
+        "nombre": "Ibuprofeno",
+        "dosis": "400mg",
+        "frecuencia_horas": 8,
+        "duracion_dias": 3
+      }
+    ]
+  },
+  {
+    "id_paciente": 2,
+    "recetas": [
+      {
+        "id_receta": 2,
+        "id_paciente": 2,
+        "id_doctor": 1,
+        "medicamento": "Panadol",
+        "dosis": "1",
+        "frecuencia": "2",
+        "duracion": "1 semana",
+        "fecha": "2024-06-08"
+      }
+    ]
+  }
+]

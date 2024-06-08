@@ -1,0 +1,16 @@
+[
+  {
+    "id_horario": 1,
+    "id_doctor": 7,
+    "dia": "Martes",
+    "horaInicio": "12:30",
+    "horaFin": "9:00"
+  },
+  {
+    "id_horario": 2,
+    "id_doctor": 2,
+    "dia": "Martes, Jueves",
+    "horaInicio": "15:30",
+    "horaFin": "22:00"
+  }
+]

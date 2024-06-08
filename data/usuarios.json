@@ -1,0 +1,139 @@
+[
+  {
+    "id_usuario": 1,
+    "nombre": "Juan Perez",
+    "carnet": 201912345,
+    "correo": "juanperez@example.com",
+    "clave": "Ju4N,P$R3z*"
+  },
+  {
+    "id_usuario": 7,
+    "nombre": "Jonh",
+    "carnet": 66,
+    "correo": "eduardojolon46@gmail.com",
+    "clave": "0609",
+    "habilitado": true
+  },
+  {
+    "id_usuario": 8,
+    "nombre": "PRUEBA",
+    "carnet": 2,
+    "correo": "PRUEBA@GMAIL.COM",
+    "clave": "PRUEBA",
+    "habilitado": true
+  },
+  {
+    "id_usuario": 9,
+    "nombre": "Prueba1",
+    "carnet": 123,
+    "correo": "Prueba1@gmail.com",
+    "clave": "P1"
+  },
+  {
+    "id_usuario": 10,
+    "nombre": "Juan",
+    "carnet": 2024,
+    "correo": "juan",
+    "clave": "juan",
+    "habilitado": true
+  },
+  {
+    "id_usuario": 11,
+    "nombre": "Juan",
+    "carnet": null,
+    "correo": "Juan",
+    "clave": "Juan",
+    "habilitado": false,
+    "rol": "personal"
+  },
+  {
+    "id_usuario": 12,
+    "nombre": "Andres",
+    "carnet": null,
+    "correo": "Andres",
+    "clave": "Andres",
+    "habilitado": true,
+    "rol": "Doctor"
+  },
+  {
+    "id_usuario": 13,
+    "nombre": "Mike",
+    "carnet": 2000,
+    "correo": "Mike@yahoo.com",
+    "clave": "Mike",
+    "habilitado": true,
+    "rol": "Doctor"
+  },
+  {
+    "id_usuario": 14,
+    "nombre": "Maria",
+    "carnet": null,
+    "correo": "Maria",
+    "clave": "Maria",
+    "habilitado": true,
+    "rol": "Paciente"
+  },
+  {
+    "id_usuario": 15,
+    "nombre": "Juan",
+    "carnet": 1111,
+    "correo": "Juan@gmail.com",
+    "clave": "ABC",
+    "habilitado": true,
+    "rol": "Doctor"
+  },
+  {
+    "id_usuario": 16,
+    "nombre": "Esther",
+    "carnet": 9999,
+    "correo": "esther@gmail.com",
+    "clave": "9999",
+    "habilitado": true,
+    "rol": "Paciente"
+  },
+  {
+    "id_usuario": 17,
+    "nombre": "a",
+    "carnet": null,
+    "correo": "a",
+    "clave": "a",
+    "habilitado": true,
+    "rol": "paciente"
+  },
+  {
+    "id_usuario": 18,
+    "nombre": "A",
+    "carnet": null,
+    "correo": "A",
+    "clave": "A",
+    "habilitado": true,
+    "rol": "A"
+  },
+  {
+    "id_usuario": 19,
+    "nombre": "w",
+    "carnet": null,
+    "correo": "w",
+    "clave": "w",
+    "habilitado": true,
+    "rol": "w"
+  },
+  {
+    "id_usuario": 20,
+    "nombre": "Pablo",
+    "carnet": 2025,
+    "correo": "pablo@gmail.com",
+    "clave": "pablo",
+    "habilitado": true,
+    "rol": "paciente"
+  },
+  {
+    "id_usuario": 21,
+    "nombre": "Daniela",
+    "carnet": 2026,
+    "correo": "daniela@gamil.com",
+    "clave": "abc",
+    "habilitado": true,
+    "rol": "Paciente"
+  }
+]

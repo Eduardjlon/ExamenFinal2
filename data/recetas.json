@@ -1,0 +1,54 @@
+[
+  {
+    "id_paciente": 1,
+    "id_doctor": 1,
+    "medicamentos": [
+      {
+        "nombre": "Ibuprofeno",
+        "dosis": "400mg",
+        "frecuencia_horas": 8,
+        "duracion_dias": 3
+      }
+    ]
+  },
+  {
+    "id_paciente": 3,
+    "recetas": [
+      {
+        "id_receta": 2,
+        "id_paciente": 3,
+        "id_doctor": 1,
+        "medicamento": "Agua",
+        "dosis": "1",
+        "frecuencia": "1",
+        "duracion": "1",
+        "fecha": "2024-06-08"
+      },
+      {
+        "id_receta": 5,
+        "id_paciente": 3,
+        "id_doctor": 2,
+        "medicamento": "Panadol",
+        "dosis": "1",
+        "frecuencia": "1",
+        "duracion": "2 dias",
+        "fecha": "2024-06-08"
+      }
+    ]
+  },
+  {
+    "id_paciente": 4,
+    "recetas": [
+      {
+        "id_receta": 4,
+        "id_paciente": 4,
+        "id_doctor": 1,
+        "medicamento": "Ibuprofeno",
+        "dosis": "1",
+        "frecuencia": "1",
+        "duracion": "1",
+        "fecha": "2024-06-08"
+      }
+    ]
+  }
+]

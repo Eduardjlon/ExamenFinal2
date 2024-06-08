@@ -1,0 +1,101 @@
+[
+  {
+    "id_factura": 1,
+    "fecha_hora": "2024-06-01 10:00",
+    "id_paciente": 1,
+    "id_doctor": 1,
+    "servicios_consumidos": [
+      1
+    ],
+    "total": 300
+  },
+  {
+    "id_factura": 2,
+    "fecha_hora": "2024-06-03 14:00",
+    "id_paciente": 2,
+    "id_doctor": 1,
+    "servicios_consumidos": [
+      2,
+      3
+    ],
+    "total": 525
+  },
+  {
+    "id_factura": 3,
+    "id_cita": 1,
+    "servicios": [
+      "7"
+    ],
+    "productos": [
+      "Blanqueamiento dental"
+    ],
+    "total": 0
+  },
+  {
+    "id_factura": 4,
+    "id_cita": 1,
+    "servicios": [
+      "7"
+    ],
+    "productos": [
+      "Blanqueamiento dental",
+      ""
+    ],
+    "total": 0
+  },
+  {
+    "id_factura": 5,
+    "id_cita": 2,
+    "servicios": [
+      "Odontologia"
+    ],
+    "productos": [
+      "Empaste"
+    ],
+    "total": 0
+  },
+  {
+    "id_factura": 6,
+    "id_cita": 2,
+    "servicios": [
+      "Odontologia"
+    ],
+    "productos": [
+      "2"
+    ],
+    "total": 0
+  },
+  {
+    "id_factura": 7,
+    "id_cita": 4,
+    "servicios": [
+      "Blanqueamiento"
+    ],
+    "productos": [
+      "7"
+    ],
+    "total": 0
+  },
+  {
+    "id_factura": 8,
+    "id_cita": 4,
+    "servicios": [
+      "Blanqueamiento"
+    ],
+    "productos": [
+      "7"
+    ],
+    "total": 0
+  },
+  {
+    "id_factura": 9,
+    "id_cita": 4,
+    "servicios": [
+      "Blanqueamiento"
+    ],
+    "productos": [
+      "Panadol"
+    ],
+    "total": 0
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "fecha_hora": "2024-06-01 10:00",
+    "id_paciente": 1,
+    "id_doctor": 1
+  },
+  {
+    "fecha_hora": "2024-06-03 14:00",
+    "id_paciente": 2,
+    "id_doctor": 1
+  },
+  {
+    "id_cita": null,
+    "id_paciente": 1,
+    "id_doctor": 1,
+    "fecha": "2024-07-03",
+    "hora": "13:30",
+    "servicio": "Blanqueamiento dental"
+  },
+  {
+    "id_cita": 1,
+    "id_paciente": 1,
+    "id_doctor": 1,
+    "fecha": "2024/06/08",
+    "hora": "12:30",
+    "servicio": "7"
+  },
+  {
+    "id_cita": 2,
+    "id_paciente": 4,
+    "id_doctor": 1,
+    "fecha": "2024/08/25",
+    "hora": "12:00",
+    "servicio": "Odontologia"
+  },
+  {
+    "id_cita": 3,
+    "id_paciente": 4,
+    "id_doctor": 2,
+    "fecha": "2024/08/25",
+    "hora": "16:00",
+    "servicio": "Odontologia"
+  },
+  {
+    "id_cita": 4,
+    "id_paciente": 1,
+    "id_doctor": 2,
+    "fecha": "2024/9/5",
+    "hora": "12:20",
+    "servicio": "Blanqueamiento"
+  }
+]
