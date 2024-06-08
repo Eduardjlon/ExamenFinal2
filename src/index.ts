@@ -373,6 +373,126 @@ async function registrarDoctor(): Promise<void> {
     mostrarMenu();
 }
 
+// Editar doctor y sus horarios
+async function editarDoctor(): Promise<void> {
+    const idDoctor = parseInt(await question('Ingrese el ID del doctor a editar: '));
+    const doctores = cargarDoctores();
+    const index = doctores.findIndex(doc => doc.id_doctor === idDoctor);
+
+    if (index !== -1) {
+        const nuevoNombre = await question('Ingrese el nuevo nombre del doctor: ');
+        const nuevaEspecialidad = await question('Ingrese la nueva especialidad del doctor: ');
+
+        doctores[index].nombre = nuevoNombre;
+        doctores[index].especialidad = nuevaEspecialidad;
+
+        guardarDoctores(doctores);
+        console.log('Doctor editado correctamente.');
+    } else {
+        console.log('No se encontró ningún doctor con ese ID.');
+    }
+
+    mostrarMenu();
+}
+
+// Eliminar doctor
+async function eliminarDoctor(): Promise<void> {
+    const idDoctor = parseInt(await question('Ingrese el ID del doctor a eliminar: '));
+    const doctores = cargarDoctores();
+    const index = doctores.findIndex(doc => doc.id_doctor === idDoctor);
+
+    if (index !== -1) {
+        doctores.splice(index, 1);
+        guardarDoctores(doctores);
+        console.log('Doctor eliminado correctamente.');
+    } else {
+        console.log('No se encontró ningún doctor con ese ID.');
+    }
+
+    mostrarMenu();
+}
+
+// Obtener un doctor (buscar por ID)
+async function obtenerDoctorPorId(): Promise<void> {
+    const idDoctor = parseInt(await question('Ingrese el ID del doctor: '));
+    const doctores = cargarDoctores();
+    const doctor = doctores.find(doc => doc.id_doctor === idDoctor);
+
+    if (doctor) {
+        console.log(`Doctor encontrado:
+        ID: ${doctor.id_doctor}
+        Nombre: ${doctor.nombre}
+        Especialidad: ${doctor.especialidad}`);
+    } else {
+        console.log('No se encontró ningún doctor con ese ID.');
+    }
+
+    mostrarMenu();
+}
+
+// Obtener doctores disponibles para una fecha específica
+async function obtenerDoctoresDisponiblesPorFecha(): Promise<void> {
+    const fecha = await question('Ingrese la fecha (YYYY-MM-DD): ');
+    const doctores = cargarDoctores();
+    const horarios = cargarHorarios();
+
+    const doctoresDisponibles = doctores.filter(doctor => {
+        const horario = horarios.find(horario => horario.id_doctor === doctor.id_doctor && horario.dia === fecha);
+        return !horario;
+    });
+
+    if (doctoresDisponibles.length === 0) {
+        console.log('No hay doctores disponibles para esta fecha.');
+    } else {
+        console.log('Doctores disponibles para esta fecha:');
+        doctoresDisponibles.forEach(doctor => {
+            console.log(`ID: ${doctor.id_doctor}, Nombre: ${doctor.nombre}, Especialidad: ${doctor.especialidad}`);
+        });
+    }
+
+    mostrarMenu();
+}
+
+// Obtener todos los doctores
+function obtenerTodosLosDoctores(): void {
+    const doctores = cargarDoctores();
+    if (doctores.length === 0) {
+        console.log('No hay doctores registrados.');
+    } else {
+        console.log('Lista de doctores:');
+        doctores.forEach(doctor => {
+            console.log(`ID: ${doctor.id_doctor}, Nombre: ${doctor.nombre}, Especialidad: ${doctor.especialidad}`);
+        });
+    }
+
+    mostrarMenu();
+}
+
+// Conteo de doctores (total de doctores registrados)
+function contarDoctores(): void {
+    const doctores = cargarDoctores();
+    console.log(`Total de doctores registrados: ${doctores.length}`);
+
+    mostrarMenu();
+}
+
+// Validar disponibilidad de un doctor para una fecha específica
+async function validarDisponibilidadDoctor(): Promise<void> {
+    const idDoctor = parseInt(await question('Ingrese el ID del doctor: '));
+    const fecha = await question('Ingrese la fecha (YYYY-MM-DD): ');
+
+    const horarios = cargarHorarios();
+    const horario = horarios.find(horario => horario.id_doctor === idDoctor && horario.dia === fecha);
+
+    if (horario) {
+        console.log('El doctor no está disponible para esta fecha.');
+    } else {
+        console.log('El doctor está disponible para esta fecha.');
+    }
+
+    mostrarMenu();
+}
+
 // Cargar horarios desde el archivo horarios.json
 function cargarHorarios(): Horario[] {
     try {
@@ -423,6 +543,8 @@ async function registrarHorario(): Promise<void> {
 
     mostrarMenu();
 }
+
+
 
 // Cargar citas desde el archivo citas.json
 function cargarCitas(): Cita[] {
@@ -704,7 +826,7 @@ function mostrarDatosPaciente(paciente: Paciente): void {
     console.log('Medicamentos:', paciente.medicamentos.join(', '));
     console.log('Condiciones Médicas:', paciente.condiciones.join(', '));
 }
-function verTodosLosPacientes(): void {
+async function verTodosLosPacientes(): Promise<void> {
     const pacientes = cargarPacientes();
     if (pacientes.length === 0) {
         console.log('No hay pacientes registrados.');
@@ -817,6 +939,13 @@ async function mostrarMenu(): Promise<void> {
     console.log('16. obtenerCitasDoctor')
     console.log('17. obtenerCitasPaciente')
     console.log('18. obtenerCitasPorFecha')
+    console.log('19. editarDoctor')
+    console.log('20. eliminarDoctor')
+    console.log('21. obtenerDoctorPorId')
+    console.log('22. obtenerDoctoresDisponiblesPorFecha')
+    console.log('23. obtenerTodosLosDoctores')
+    console.log('24. contarDoctores')
+    console.log('25. validarDisponibilidadDoctor')
     console.log('0. Salir');
 
     const opcion = await question('Seleccione una opción: ');
@@ -876,6 +1005,27 @@ async function mostrarMenu(): Promise<void> {
         case '18':
             await obtenerCitasPorFecha();
              break;
+        case '19':
+             await editarDoctor();
+             break;
+        case '20':
+            await eliminarDoctor();
+            break;
+        case '21':
+            await obtenerDoctorPorId();
+            break;
+        case '22':
+            await obtenerDoctoresDisponiblesPorFecha();
+            break;
+        case '23':
+            await obtenerTodosLosDoctores();
+            break;
+        case '24':
+            await contarDoctores();
+            break;
+        case '25':
+            await validarDisponibilidadDoctor();
+            break;
         case '0':
             rl.close();
             return;
