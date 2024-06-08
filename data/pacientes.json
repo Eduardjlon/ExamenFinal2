@@ -42,5 +42,21 @@
     "condiciones": [
       "Ninguna"
     ]
+  },
+  {
+    "id_paciente": 4,
+    "nombre": "Karla",
+    "fechaNacimiento": "2000/02/5",
+    "direccion": "Ciudad de Guatemala",
+    "telefono": "54321234",
+    "alergias": [
+      "Ibuprofeno"
+    ],
+    "medicamentos": [
+      "Ninguno"
+    ],
+    "condiciones": [
+      "Ninguna"
+    ]
   }
 ]

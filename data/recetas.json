@@ -25,5 +25,20 @@
         "fecha": "2024-06-08"
       }
     ]
+  },
+  {
+    "id_paciente": 4,
+    "recetas": [
+      {
+        "id_receta": 4,
+        "id_paciente": 4,
+        "id_doctor": 1,
+        "medicamento": "Ibuprofeno",
+        "dosis": "1",
+        "frecuencia": "1",
+        "duracion": "1",
+        "fecha": "2024-06-08"
+      }
+    ]
   }
 ]
