@@ -13,5 +13,35 @@
         "fecha": "2024-06-08"
       }
     ]
+  },
+  {
+    "id_paciente": 4,
+    "recetas": [
+      {
+        "id_receta": 6,
+        "id_paciente": 4,
+        "id_doctor": 1,
+        "medicamento": "Panadol",
+        "dosis": "1",
+        "frecuencia": "cada 12 horas",
+        "duracion": "1 semana",
+        "fecha": "2024-06-08"
+      }
+    ]
+  },
+  {
+    "id_paciente": 3,
+    "recetas": [
+      {
+        "id_receta": 5,
+        "id_paciente": 3,
+        "id_doctor": 1,
+        "medicamento": "Panadol",
+        "dosis": "1",
+        "frecuencia": "3",
+        "duracion": "2",
+        "fecha": "2024-06-08"
+      }
+    ]
   }
 ]

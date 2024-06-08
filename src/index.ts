@@ -597,6 +597,27 @@ async function registrarReceta(): Promise<void> {
 
     mostrarMenu();
 }
+// Mostrar los datos de un paciente
+function mostrarDatosPaciente(paciente: Paciente): void {
+    console.log('\n--- Datos Registrados del Paciente ---');
+    console.log('ID de Paciente:', paciente.id_paciente);
+    console.log('Nombre:', paciente.nombre);
+    console.log('Fecha de Nacimiento:', paciente.fechaNacimiento);
+    console.log('Dirección:', paciente.direccion);
+    console.log('Teléfono:', paciente.telefono);
+    console.log('Alergias:', paciente.alergias.join(', '));
+    console.log('Medicamentos:', paciente.medicamentos.join(', '));
+    console.log('Condiciones Médicas:', paciente.condiciones.join(', '));
+}
+function verTodosLosPacientes(): void {
+    const pacientes = cargarPacientes();
+    if (pacientes.length === 0) {
+        console.log('No hay pacientes registrados.');
+    } else {
+        pacientes.forEach(mostrarDatosPaciente);
+    }
+    mostrarMenu();
+}
 
 // Cargar facturas desde el archivo facturas.json
 function cargarFacturas(): Factura[] {
@@ -695,6 +716,7 @@ async function mostrarMenu(): Promise<void> {
     console.log('10. Registrar producto o servicio');
     console.log('11. Registrar receta');
     console.log('12. Generar factura');
+    console.log('13 Ver registro de pacientes')
     console.log('0. Salir');
 
     const opcion = await question('Seleccione una opción: ');
@@ -734,6 +756,9 @@ async function mostrarMenu(): Promise<void> {
             await registrarReceta();
             break;
         case '12':
+            await generarFactura();
+            break;
+        case '13':
             await generarFactura();
             break;
         case '0':

@@ -42,37 +42,5 @@
     "condiciones": [
       "Ninguna"
     ]
-  },
-  {
-    "id_paciente": 4,
-    "nombre": "Juan",
-    "fechaNacimiento": "2003/09/03",
-    "direccion": "Guatemala",
-    "telefono": "55005500",
-    "alergias": [
-      "Trabajar"
-    ],
-    "medicamentos": [
-      "Ninguno"
-    ],
-    "condiciones": [
-      "Ninguno"
-    ]
-  },
-  {
-    "id_paciente": 5,
-    "nombre": "Jose",
-    "fechaNacimiento": "2001/05/21",
-    "direccion": "Cayala",
-    "telefono": "55115511",
-    "alergias": [
-      "Ninguna"
-    ],
-    "medicamentos": [
-      "Ninguno"
-    ],
-    "condiciones": [
-      "Ninguna"
-    ]
   }
 ]

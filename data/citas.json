@@ -24,5 +24,13 @@
     "fecha": "2024/06/08",
     "hora": "12:30",
     "servicio": "7"
+  },
+  {
+    "id_cita": 2,
+    "id_paciente": 4,
+    "id_doctor": 1,
+    "fecha": "2024/08/25",
+    "hora": "12:00",
+    "servicio": "Odontologia"
   }
 ]

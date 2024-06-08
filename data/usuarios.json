@@ -63,5 +63,14 @@
     "clave": "Mike",
     "habilitado": true,
     "rol": "Doctor"
+  },
+  {
+    "id_usuario": 14,
+    "nombre": "Maria",
+    "carnet": null,
+    "correo": "Maria",
+    "clave": "Maria",
+    "habilitado": true,
+    "rol": "Paciente"
   }
 ]
