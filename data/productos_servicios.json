@@ -1,44 +1,50 @@
 [
-    {
-        "id_producto_servicio": 1,
-        "tipo": "Servicio",
-        "nombre": "Limpieza Dental",
-        "precio": 300.00
-    },
-    {
-        "id_producto_servicio": 2,
-        "tipo": "Servicio",
-        "nombre": "Empaste",
-        "precio": 500.00
-    },
-    {
-        "id_producto_servicio": 3,
-        "tipo": "Producto",
-        "nombre": "Pasta Dental",
-        "precio": 25.00
-    },
-    {
-        "id_producto_servicio": 4,
-        "tipo": "Servicio",
-        "nombre": "Extracciones",
-        "precio": 400.00
-    },
-    {
-        "id_producto_servicio": 5,
-        "tipo": "Servicio",
-        "nombre": "Tratamientos de Conducto",
-        "precio": 350.0
-    },
-    {
-        "id_producto_servicio": 6,
-        "tipo": "Servicio",
-        "nombre": "ortodoncia",
-        "precio": 5000.0
-    },
-    {
-        "id_producto_servicio": 7,
-        "tipo": "Servicio",
-        "nombre": "Blanqueamiento dental",
-        "precio": 250.0
-    }
+  {
+    "id_producto_servicio": 1,
+    "tipo": "Servicio",
+    "nombre": "Limpieza Dental",
+    "precio": 300
+  },
+  {
+    "id_producto_servicio": 2,
+    "tipo": "Servicio",
+    "nombre": "Empaste",
+    "precio": 500
+  },
+  {
+    "id_producto_servicio": 3,
+    "tipo": "Producto",
+    "nombre": "Pasta Dental",
+    "precio": 25
+  },
+  {
+    "id_producto_servicio": 4,
+    "tipo": "Servicio",
+    "nombre": "Extracciones",
+    "precio": 400
+  },
+  {
+    "id_producto_servicio": 5,
+    "tipo": "Servicio",
+    "nombre": "Tratamientos de Conducto",
+    "precio": 350
+  },
+  {
+    "id_producto_servicio": 6,
+    "tipo": "Servicio",
+    "nombre": "ortodoncia",
+    "precio": 5000
+  },
+  {
+    "id_producto_servicio": 7,
+    "tipo": "Servicio",
+    "nombre": "Blanqueamiento dental",
+    "precio": 250
+  },
+  {
+    "id_producto": null,
+    "nombre": "OLA",
+    "tipo": "producto",
+    "precio": 5000
+  }
 ]

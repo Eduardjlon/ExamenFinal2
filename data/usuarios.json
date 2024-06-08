@@ -72,5 +72,50 @@
     "clave": "Maria",
     "habilitado": true,
     "rol": "Paciente"
+  },
+  {
+    "id_usuario": 15,
+    "nombre": "Juan",
+    "carnet": 1111,
+    "correo": "Juan@gmail.com",
+    "clave": "ABC",
+    "habilitado": true,
+    "rol": "Doctor"
+  },
+  {
+    "id_usuario": 16,
+    "nombre": "Esther",
+    "carnet": 9999,
+    "correo": "esther@gmail.com",
+    "clave": "9999",
+    "habilitado": true,
+    "rol": "Paciente"
+  },
+  {
+    "id_usuario": 17,
+    "nombre": "a",
+    "carnet": null,
+    "correo": "a",
+    "clave": "a",
+    "habilitado": true,
+    "rol": "paciente"
+  },
+  {
+    "id_usuario": 18,
+    "nombre": "A",
+    "carnet": null,
+    "correo": "A",
+    "clave": "A",
+    "habilitado": true,
+    "rol": "A"
+  },
+  {
+    "id_usuario": 19,
+    "nombre": "w",
+    "carnet": null,
+    "correo": "w",
+    "clave": "w",
+    "habilitado": true,
+    "rol": "w"
   }
 ]

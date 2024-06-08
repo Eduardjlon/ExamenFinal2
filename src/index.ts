@@ -266,7 +266,7 @@ async function deshabilitarUsuario(): Promise<void> {
     } else {
         console.log('Usuario no encontrado o credenciales incorrectas.');
     }
-    mostrarMenu(); // Volver al menú principal
+    mostrarMenu();
 }
 
 // Desautenticar (cerrar sesión) del usuario actual
@@ -279,8 +279,7 @@ function desautenticarUsuario(): void {
     }
     mostrarMenu(); // Volver al menú principal
 }
-
-// Cargar pacientes desde el archivo pacientes.json
+// deberia carga los pacientes desde el .json para la funcion "13", no se porque no funciona, si alguien lo puede corregir porfi xdxd
 function cargarPacientes(): Paciente[] {
     try {
         const pacientesData = fs.readFileSync('data/pacientes.json', 'utf-8');
@@ -537,7 +536,7 @@ function cargarHistoriales(): Historial[] {
     }
 }
 
-// Guardar los historiales en el archivo historiales.json
+// pasen un formulario para fisica porfa
 function guardarHistoriales(recetas: Historial[]): void {
     try {
         fs.writeFileSync('data/recetas.json', JSON.stringify(recetas, null, 2));
@@ -759,7 +758,7 @@ async function mostrarMenu(): Promise<void> {
             await generarFactura();
             break;
         case '13':
-            await generarFactura();
+            verTodosLosPacientes();
             break;
         case '0':
             rl.close();
@@ -771,6 +770,6 @@ async function mostrarMenu(): Promise<void> {
     }
 }
 // Hay que arreglar el coso para precios, no jala xd
-// Las recetas si se crean y se guardan en "historiales.json" hay que crear la funcion de ver las recetas creadas
+// Las recetas si se crean y se guardan en "Recetas5.json" hay que crear la funcion de ver las recetas creadas
 
 mostrarMenu();

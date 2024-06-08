@@ -42,5 +42,27 @@
       ""
     ],
     "total": 0
+  },
+  {
+    "id_factura": 5,
+    "id_cita": 2,
+    "servicios": [
+      "Odontologia"
+    ],
+    "productos": [
+      "Empaste"
+    ],
+    "total": 0
+  },
+  {
+    "id_factura": 6,
+    "id_cita": 2,
+    "servicios": [
+      "Odontologia"
+    ],
+    "productos": [
+      "2"
+    ],
+    "total": 0
   }
 ]
