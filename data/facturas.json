@@ -30,5 +30,17 @@
       "Blanqueamiento dental"
     ],
     "total": 0
+  },
+  {
+    "id_factura": 4,
+    "id_cita": 1,
+    "servicios": [
+      "7"
+    ],
+    "productos": [
+      "Blanqueamiento dental",
+      ""
+    ],
+    "total": 0
   }
 ]

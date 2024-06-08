@@ -308,9 +308,9 @@ async function registrarPaciente(): Promise<void> {
     const fechaNacimiento = await question('Ingrese la fecha de nacimiento del paciente (YYYY-MM-DD): ');
     const direccion = await question('Ingrese la dirección del paciente: ');
     const telefono = await question('Ingrese el número de teléfono del paciente: ');
-    const alergias = (await question('Ingrese las alergias del paciente (separadas por comas): ')).split(',').map(a => a.trim());
-    const medicamentos = (await question('Ingrese los medicamentos actuales del paciente (separados por comas): ')).split(',').map(m => m.trim());
-    const condiciones = (await question('Ingrese las condiciones médicas preexistentes del paciente (separadas por comas): ')).split(',').map(c => c.trim());
+    const alergias = (await question('Ingrese las alergias del paciente: ')).split(',').map(a => a.trim());
+    const medicamentos = (await question('Ingrese los medicamentos actuales del paciente: ')).split(',').map(m => m.trim());
+    const condiciones = (await question('Ingrese las condiciones médicas preexistentes del paciente: ')).split(',').map(c => c.trim());
 
     const nuevoId = pacientes.length > 0 ? pacientes[pacientes.length - 1].id_paciente + 1 : 1;
     const nuevoPaciente: Paciente = {
@@ -639,7 +639,7 @@ async function generarFactura(): Promise<void> {
     }
 
     const serviciosConsumidos = [cita.servicio];
-    const productosConsumidos = (await question('Ingrese los productos consumidos (separados por comas): ')).split(',').map(p => p.trim());
+    const productosConsumidos = (await question('Ingrese los productos consumidos: ')).split(',').map(p => p.trim());
 
     const totalServicios = serviciosConsumidos.reduce((total, servicio) => {
         const productoServicio = productosServicios.find(ps => ps.nombre === servicio && ps.tipo === 'servicio');
@@ -670,7 +670,6 @@ async function generarFactura(): Promise<void> {
     mostrarMenu();
 }
 
-// Crear readline interface para la entrada de usuario
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
