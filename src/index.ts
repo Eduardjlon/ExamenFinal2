@@ -111,8 +111,8 @@ async function registrarUsuario(): Promise<void> {
     const usuarioExistente = usuarios.find(user => user.correo === correo);
     if (usuarioExistente) {
         console.log('Ya existe un usuario con este correo.');
+        mostrarMenu(); // Mostrar el menú nuevamente
         return;
-        mostrarMenu();    
     }
     
 
