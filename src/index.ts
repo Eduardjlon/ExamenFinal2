@@ -248,7 +248,7 @@ async function editarUsuario(): Promise<void> {
     mostrarMenu(); // Volver al menú principal
 }
 
-// Deshabilitar un usuario existente
+// Deshabilitar un usuario existente, lo desactiva no lo borra, creo que no lo solicita o no se leer.
 async function deshabilitarUsuario(): Promise<void> {
     const usuarios = cargarUsuarios();
 
